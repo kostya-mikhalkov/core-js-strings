@@ -365,7 +365,7 @@ function isPalindrome(str) {
  */
 function findLongestWord(sentence) {
   const arr = sentence.split(' ');
-  const longWord = arr.sort(function (a, b) {
+  const longWord = arr.sort(function sorting(a, b) {
     return b.length - a.length;
   });
   return longWord[0];
