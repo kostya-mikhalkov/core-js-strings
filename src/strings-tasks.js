@@ -456,7 +456,7 @@ function extractNameFromTemplate(value) {
  *   unbracketTag('<a>') => 'a'
  */
 function unbracketTag(str) {
-  return
+  return str.replace(/<|>/gi, '');
 }
 
 /**
@@ -474,8 +474,8 @@ function unbracketTag(str) {
  *   ],
  *   'info@gmail.com' => ['info@gmail.com']
  */
-function extractEmails(/* str */) {
-  throw new Error('Not implemented');
+function extractEmails(str) {
+  return str.split(';');
 }
 
 /**
@@ -494,8 +494,47 @@ function extractEmails(/* str */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const obj = {
+    a: 'n',
+    b: 'o',
+    c: 'p',
+    d: 'q',
+    e: 'r',
+    f: 's',
+    g: 't',
+    h: 'u',
+    i: 'v',
+    j: 'w',
+    k: 'x',
+    l: 'y',
+    m: 'z',
+    n: 'a',
+    o: 'b',
+    p: 'c',
+    q: 'd',
+    r: 'e',
+    s: 'f',
+    t: 'g',
+    u: 'h',
+    v: 'i',
+    w: 'j',
+    x: 'k',
+    y: 'l',
+    z: 'm',
+  };
+  let res = '';
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i].toLowerCase() in obj) {
+      res +=
+        str[i].toLowerCase() === str[i]
+          ? obj[str[i].toLowerCase()]
+          : obj[str[i].toLowerCase()].toUpperCase();
+    } else {
+      res += str[i];
+    }
+  }
+  return res;
 }
 
 /**
@@ -522,8 +561,68 @@ function encodeToRot13(/* str */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const arr = [
+    'A♣',
+    '2♣',
+    '3♣',
+    '4♣',
+    '5♣',
+    '6♣',
+    '7♣',
+    '8♣',
+    '9♣',
+    '10♣',
+    'J♣',
+    'Q♣',
+    'K♣',
+    'A♦',
+    '2♦',
+    '3♦',
+    '4♦',
+    '5♦',
+    '6♦',
+    '7♦',
+    '8♦',
+    '9♦',
+    '10♦',
+    'J♦',
+    'Q♦',
+    'K♦',
+    'A♥',
+    '2♥',
+    '3♥',
+    '4♥',
+    '5♥',
+    '6♥',
+    '7♥',
+    '8♥',
+    '9♥',
+    '10♥',
+    'J♥',
+    'Q♥',
+    'K♥',
+    'A♠',
+    '2♠',
+    '3♠',
+    '4♠',
+    '5♠',
+    '6♠',
+    '7♠',
+    '8♠',
+    '9♠',
+    '10♠',
+    'J♠',
+    'Q♠',
+    'K♠',
+  ];
+  let res = 0;
+  for (let i = 0; i < arr.length; i += 1) {
+    if (arr[i] === value) {
+      res = i;
+    }
+  }
+  return res;
 }
 
 module.exports = {
